@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Feb 13, 2019 at 03:33 PM
+-- Generation Time: Mar 07, 2019 at 02:29 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -79,6 +79,7 @@ CREATE TABLE `php02_table` (
   `task` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `deadline` date NOT NULL,
   `comment` text COLLATE utf8_unicode_ci,
+  `image` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `indate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -86,13 +87,58 @@ CREATE TABLE `php02_table` (
 -- Dumping data for table `php02_table`
 --
 
-INSERT INTO `php02_table` (`id`, `task`, `deadline`, `comment`, `indate`) VALUES
-(12, '決起会', '2019-02-04', '', '2019-02-02 16:29:24'),
-(13, '卒業制作', '2019-05-17', '', '2019-02-02 16:34:36'),
-(14, 'gs_f01_卒業式', '2019-02-02', '', '2019-02-02 16:35:12'),
-(15, '開発合宿', '2019-02-10', '頑張る！', '2019-02-02 16:37:53'),
-(17, 'ガッキーBD', '2019-02-09', '', '2019-02-09 14:42:40'),
-(18, 'CICEI☆BD', '2019-09-05', '', '2019-02-09 17:52:21');
+INSERT INTO `php02_table` (`id`, `task`, `deadline`, `comment`, `image`, `indate`) VALUES
+(12, '決起会', '2019-02-04', '', NULL, '2019-02-02 16:29:24'),
+(14, 'gs_f01_卒業式', '2019-02-02', '', NULL, '2019-02-02 16:35:12'),
+(15, '開発合宿', '2019-02-10', '頑張る！', NULL, '2019-02-02 16:37:53'),
+(18, 'CICEI☆BD', '2019-09-05', '何が欲しい？', NULL, '2019-02-09 17:52:21'),
+(20, '課題ff', '2019-03-02', 'できた！', 'upload/20190302071024d41d8cd98f00b204e9800998ecf8427e.png', '2019-03-02 16:10:24'),
+(21, 'test', '2019-03-03', '', 'upload/20190302075925d41d8cd98f00b204e9800998ecf8427e.png', '2019-03-02 16:59:25'),
+(22, '課題4', '2000-01-01', '', NULL, '2019-03-02 17:11:44'),
+(26, '課題その４', '2019-03-26', '', NULL, '2019-03-02 17:33:51'),
+(27, '課題', '2019-03-20', '', NULL, '2019-03-02 17:38:09'),
+(28, '課題どうだ', '2019-03-19', '', NULL, '2019-03-02 17:50:19'),
+(29, '課題', '2019-03-03', '', 'upload/20190303021313d41d8cd98f00b204e9800998ecf8427e.png', '2019-03-03 11:13:13');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `therapy_table`
+--
+
+CREATE TABLE `therapy_table` (
+  `id` int(12) NOT NULL,
+  `name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `syndrome` text COLLATE utf8_unicode_ci NOT NULL,
+  `date` date NOT NULL,
+  `comment` text COLLATE utf8_unicode_ci,
+  `image` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `comment2` text COLLATE utf8_unicode_ci,
+  `indate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `therapy_table`
+--
+
+INSERT INTO `therapy_table` (`id`, `name`, `syndrome`, `date`, `comment`, `image`, `comment2`, `indate`) VALUES
+(1, 'SHIRIN22', 'お腹が痛い', '2019-03-02', '', NULL, NULL, '2019-03-03 21:19:42'),
+(4, '', 'お腹が痛い', '2018-12-31', '31', NULL, NULL, '2019-03-06 20:52:02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `therapy_table_username`
+--
+
+CREATE TABLE `therapy_table_username` (
+  `id` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `syndrome` text NOT NULL,
+  `date` date NOT NULL,
+  `comment` text NOT NULL,
+  `image` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -102,7 +148,7 @@ INSERT INTO `php02_table` (`id`, `task`, `deadline`, `comment`, `indate`) VALUES
 
 CREATE TABLE `user_table` (
   `id` int(12) NOT NULL,
-  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `lid` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `lpw` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `utype` int(1) NOT NULL,
@@ -113,10 +159,8 @@ CREATE TABLE `user_table` (
 -- Dumping data for table `user_table`
 --
 
-INSERT INTO `user_table` (`id`, `name`, `lid`, `lpw`, `kanri_flg`, `life_flg`) VALUES
-(3, 'SHIRINンンン', 'sk', '19871102', 19871102, 19871102),
-(4, 'SHIRIN', 'sk', '19871102', 19871102, 19871102),
-(5, 'SHIRIN', 'sk', '19871102', 1, 1);
+INSERT INTO `user_table` (`id`, `username`, `lid`, `lpw`, `utype`, `edtype`) VALUES
+(5, 'SHIRIN', 'sk', '123', 0, 0);
 
 --
 -- Indexes for dumped tables
@@ -139,6 +183,18 @@ ALTER TABLE `myakushin_table`
 --
 ALTER TABLE `php02_table`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `therapy_table`
+--
+ALTER TABLE `therapy_table`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `therapy_table_username`
+--
+ALTER TABLE `therapy_table_username`
+  ADD KEY `id` (`id`);
 
 --
 -- Indexes for table `user_table`
@@ -166,7 +222,13 @@ ALTER TABLE `myakushin_table`
 -- AUTO_INCREMENT for table `php02_table`
 --
 ALTER TABLE `php02_table`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+
+--
+-- AUTO_INCREMENT for table `therapy_table`
+--
+ALTER TABLE `therapy_table`
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user_table`
